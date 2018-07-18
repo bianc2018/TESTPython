@@ -6,6 +6,7 @@ import requests
 import seaborn as sns
 import matplotlib.pyplot as plt 
 from matplotlib.font_manager import FontProperties
+import statsmodels.api 
 try:
     PATH = r'./'
     #r = requests.get('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data')
@@ -21,9 +22,24 @@ try:
     #print(df.count())
     #print(df.describe(percentiles=[.20,.40,.80,.90,.95]))
     #print(df.corr())
+#    plt.style.use("ggplot")
+    #中文字体
     myfont=FontProperties(fname=r'C:\Windows\Fonts\simhei.ttf',size=14)
     sns.set(font=myfont.get_name())
-    g= sns.pairplot(df,hue="类别")
+    #g= sns.pairplot(df,hue="类别")
+    #plt.show()
+    #画散点图
+    #fig,ax = plt.subplots(figsize=(7,7))
+    #ax.scatter(df['花萼宽度'][:50],df['花萼长度'][:50])
+    #ax.set_ylabel("花萼长度")
+    #ax.set_xlabel("花萼宽度")
+    #ax.set_title('花萼（长*宽）',fontsize=14,y=1.02)
+    #回归直线
+    y = df['花萼长度'][:50]
+    x = df['花萼宽度'][:50]
+    X = sm.add_constant(x)
+    results = sm.OLS(y,x).fit()
+    print(results.summary())
     plt.show()
 except Exception as e:
     print("ERROR:"+str(e))
