@@ -12,7 +12,7 @@ class LineEdit(QWidget):
         super().__init__()
         self.initUI()
     def initUI(self):
-        self.label = QLabel("         ",self)
+        self.label = QLabel(self)
         edit = QLineEdit(self)
         edit.textChanged[str].connect(self.onChange)
         edit.move(80,100)
@@ -24,7 +24,7 @@ class LineEdit(QWidget):
     def onChange(self,text):
         print(text)
         self.label.setText(text)
-        self.adjustSize()
+        self.label.adjustSize()
 
 
 if __name__ == "__main__":
